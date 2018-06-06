@@ -3,58 +3,44 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
 const HomePage = () => (
-  <Container
-    fluid
-    style={{
-      height: "100vh",
-      color: "white",
-      background: "linear-gradient(to right, #692022, #1b1819)"
-    }}
-  >
-    <Row
-      className="align-items-center justify-content-center text-center"
-      style={{ height: "100%" }}
-    >
-      <Col xs={12} sm={6}>
-        <img
-          className="img-fluid"
-          alt="Adventurers League Logo"
-          src="http://media.wizards.com/images/dnd/playevents/DnD_ADVL.png"
-        />
-      </Col>
-      <Col
-        xs={12}
-        sm={6}
-        style={{
-          fontFamily: "'Open Sans', sans-serif"
-        }}
-      >
-        <h1
+  <React.Fragment>
+    <section className="home-area">
+      <Container >
+        <Row
+          className="align-items-center "
           style={{
-            boxShadow:
-              "6px 0 0 rgba(20,12,10, .7), -6px 0 0 rgba(20,12,10, .7)",
-            background: "rgba(20,12,10, .7)",
-            lineHeight: "3rem"
+            height: "70vh",
+            color: "white",
           }}
         >
-          BECOME AN ADVENTURER!
-        </h1>
-        <br />
-        <div className="text-center">
-          <Link
-            to="/signup"
-            className="btn btn-primary btn-lg"
-            style={{
-              backgroundColor: "#9c0b0e",
-              border: "none"
-            }}
-          >
-            JOIN THE PARTY!
-          </Link>
-        </div>
-      </Col>
-    </Row>
-  </Container>
+          <Col xs={10} sm={6}>
+            <h2>
+              The key to your college application success
+    is making it your own.
+        </h2>
+            <h5>Real application examples and insights from students like you who carved their own path.
+Discover and showcase the best version of you.</h5>
+            <br />
+          </Col>
+          <Col xs={10} sm={6}>
+            <div className="text-center">
+              <img className="img-fluid rounded" src={require('../../assets/lindsay-henwood-47743-unsplash.jpg')} alt="" />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+
+    <Container >
+      <Row className="align-items-center justify-content-center text-center">
+        <Col xs={10} sm={10}>
+          <div className="text-center">
+            <img className="img-fluid" src={require('../../assets/demo2.jpg')} alt="" />
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  </React.Fragment>
 );
 
 export default HomePage;

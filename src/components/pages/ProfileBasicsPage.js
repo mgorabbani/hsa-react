@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Row, Col } from 'antd';
 
 import Steps from '../forms/Steps'
 import 'antd/dist/antd.css';
@@ -17,10 +18,12 @@ class ProfileBasics extends React.Component {
                     <h6>Find people similar to you. Unlock their application files and message them for advice.</h6>
                 </div>
 
-                <div className="container">
-                    <div className="col-md-12">
-                        <Steps />
-                    </div>
+                <div className="container m50">
+                    <Row>
+                        <Col span={16} offset={4}>
+                            <Steps />
+                        </Col>
+                    </Row>
                 </div>
             </React.Fragment>
         );

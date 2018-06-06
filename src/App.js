@@ -18,7 +18,8 @@ import SearchPage from "./components/pages/SearchPage";
 import { fetchCurrentUserRequest } from "./actions/users";
 import ProfileBasicsPage from "./components/pages/ProfileBasicsPage";
 import SettingsPage from './components/pages/SettingsPage'
-
+import ProfileDetails from './components/pages/ProfileDetails'
+import './assets/style.css';
 class App extends React.Component {
   componentDidMount() {
     if (this.props.isAuthenticated) this.props.fetchCurrentUserRequest();
@@ -30,7 +31,8 @@ class App extends React.Component {
       <IntlProvider>
         <div>
           <Loader loaded={loaded}>
-            {isAuthenticated && <TopNavigation />}
+
+            <TopNavigation />
             <Route location={location} path="/" exact component={HomePage} />
             <Route
               location={location}
@@ -79,6 +81,12 @@ class App extends React.Component {
               path="/profile-basics"
               exact
               component={ProfileBasicsPage}
+            />
+            <UserRoute
+              location={location}
+              path="/profile-details/:id"
+              exact
+              component={ProfileDetails}
             />
             <UserRoute
               location={location}

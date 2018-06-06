@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import SingleStudent from '../component/SingleStudent';
 import { Input, Col, Row } from 'antd';
+import { Card } from 'antd';
+
 const Search = Input.Search;
+const gridStyle = {
+    width: '25%',
+    textAlign: 'center',
+};
 
 
 class SearchPage extends React.Component {
@@ -11,7 +17,7 @@ class SearchPage extends React.Component {
         return (
             <React.Fragment>
                 <div style={{ textAlign: 'center', padding: '50px', background: '#F1F6F4' }}>
-                    <h1 style={{}} >College Application Profiles</h1>
+                    <h1>College Application Profiles</h1>
                     <h6>Find people similar to you. Unlock their application files and message them for advice.</h6>
                     <br />
                     <Row>
@@ -28,7 +34,16 @@ class SearchPage extends React.Component {
 
                 <div className="container">
                     <div className="col-md-12">
-                        <SingleStudent />
+                        <Card title="Student Profiles">
+
+
+                            <Card.Grid style={gridStyle}><SingleStudent /></Card.Grid>
+                            <Card.Grid style={gridStyle}><SingleStudent /></Card.Grid>
+                            <Card.Grid style={gridStyle}><SingleStudent /></Card.Grid>
+                            <Card.Grid style={gridStyle}><SingleStudent /></Card.Grid>
+                            <Card.Grid style={gridStyle}><SingleStudent /></Card.Grid>
+
+                        </Card>
                     </div>
                 </div>
             </React.Fragment>

@@ -1,10 +1,12 @@
 import React from "react";
+import Step1 from './Step1';
 import { Steps, Button, message } from 'antd';
 const Step = Steps.Step;
 
+
 const steps = [{
     title: 'First',
-    content: 'First-content',
+    content: <Step1 />,
 }, {
     title: 'Second',
     content: 'Second-content',
@@ -35,7 +37,9 @@ class StepsList extends React.Component {
                 <Steps current={current}>
                     {steps.map(item => <Step key={item.title} title={item.title} />)}
                 </Steps>
+                <br />
                 <div className="steps-content">{steps[this.state.current].content}</div>
+                <br />
                 <div className="steps-action">
                     {
                         this.state.current < steps.length - 1

@@ -16,7 +16,7 @@ import {
 import { connect } from "react-redux";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import gravatarUrl from "gravatar-url";
-
+import { Button } from 'antd';
 import * as actions from "../../actions/auth";
 
 
@@ -28,7 +28,7 @@ class TopNavigation extends React.Component {
   toggle = () => this.setState({ isOpen: !this.state.isOpen });
 
   render() {
-    const { user, logout } = this.props;
+    const { user, logout, isAuthenticated } = this.props;
 
     return (
       <Navbar light expand="sm" style={{ borderBottom: '1px solid #E8E7DE' }}>
@@ -48,50 +48,68 @@ class TopNavigation extends React.Component {
               <NavLink
                 tag={RouterNavLink}
                 activeClassName="active"
-                to="/dashboard"
+                to="/search-graduate"
               >
-                Profiles
+                Search Profiles
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 tag={RouterNavLink}
                 activeClassName="active"
-                to="/search-graduate"
+                to="/visa-interviews"
               >
-                Search
+                Visa Interviews
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                tag={RouterNavLink}
+                activeClassName="active"
+                to="/visa-interviews"
+              >
+                University Suggestion
               </NavLink>
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
+            {!isAuthenticated && <NavItem>
+              <NavLink
+                tag={RouterNavLink}
+                to="/login"
+              >
+                <Button type="primary">Login</Button>
 
-            <UncontrolledDropdown nav>
-              <DropdownToggle nav>
-                <img
-                  className="img-fluid rounded-circle"
-                  src={gravatarUrl(user.email, { size: 40 })}
-                  alt="Gravatar"
-                />
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem><NavLink
-                  tag={RouterNavLink}
-                  activeClassName="active"
-                  to="/profile-basics"
-                >
-                  Edit Profile
+              </NavLink>
+            </NavItem>}
+            {isAuthenticated &&
+              <UncontrolledDropdown nav>
+                <DropdownToggle nav>
+                  <img
+                    className="img-fluid rounded-circle"
+                    src={gravatarUrl(user.email, { size: 40 })}
+                    alt="Gravatar"
+                  />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem><NavLink
+                    tag={RouterNavLink}
+                    activeClassName="active"
+                    to="/profile-basics"
+                  >
+                    Edit Profile
               </NavLink></DropdownItem>
-                <DropdownItem><NavLink
-                  tag={RouterNavLink}
-                  activeClassName="active"
-                  to="/settings"
-                >
-                  Settings
+                  <DropdownItem><NavLink
+                    tag={RouterNavLink}
+                    activeClassName="active"
+                    to="/settings"
+                  >
+                    Settings
               </NavLink></DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => logout()}>Logout</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => logout()}>Logout</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>}
           </Nav>
         </Collapse>
       </Navbar>
@@ -109,7 +127,8 @@ TopNavigation.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    isAuthenticated: !!state.user.email,
   };
 }
 

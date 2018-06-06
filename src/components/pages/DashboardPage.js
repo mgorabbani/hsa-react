@@ -16,8 +16,8 @@ class DashboardPage extends React.Component {
           {!isConfirmed && <ConfirmEmailMessage />}
         </div>
         <TopArea>
-          <h1 style={{ fontSize: "50px" }} > Welcome Back to HSA Students!</h1>
-          <h2>It's always good to see you.</h2>
+          <h1 > Welcome Back to HSA Students!</h1>
+          <h5>It's always good to see you.</h5>
         </TopArea>
         <Container >
           <Row>

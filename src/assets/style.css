@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700');
+.ant-btn-primary {
+    background-color: #43DB7B;
+    border-color: #4AB05B;
+}
+.ant-btn-primary:hover {
+    background-color: #4AB05B;
+    border-color: #4AB05B;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+}
+.m50 {
+    margin-top: 50px;
+}
+
+.home-area {
+    color:#fff;
+    background: linear-gradient(to right, #E8E7DE, #fff)
+}
+.btn-login {
+    background: #43DB7B
+}

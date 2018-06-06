@@ -12,8 +12,7 @@ border-color: #2CE080;
 export const TopArea = styled.section`
   padding: 4em;
   text-align:center;
-  background: #3bd876 center center;
-    color: #fff;
+  background: #F7FBF8 center center;
 `;
 export const Tips = styled.div`
 border-top: 1px solid #2CE080;
