@@ -1,30 +1,41 @@
 import React from "react";
+import { connect } from "react-redux";
 import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
+import api from "../../api";
 import { Steps, Button, message } from 'antd';
 const Step = Steps.Step;
 
 
-const steps = [{
-    title: 'First',
-    content: <Step1 />,
-}, {
-    title: 'Second',
-    content: 'Second-content',
-}, {
-    title: 'Last',
-    content: 'Last-content',
-}];
 
 class StepsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             current: 0,
+            user: [],
         };
     }
+
+    steps = [{
+        title: 'Personal Information',
+        content: <Step1 />,
+    }, {
+        title: 'Student Profile',
+        content: <Step2 />,
+    }, {
+        title: 'Upcoming University',
+        content: <Step3 />,
+    }];
+
+
     next() {
         const current = this.state.current + 1;
         this.setState({ current });
+        api.user.updateUserInfo(this.props.user).then(() => {
+            message.success(`Step ${current} Updates!`)
+        })
     }
     prev() {
         const current = this.state.current - 1;
@@ -32,24 +43,30 @@ class StepsList extends React.Component {
     }
     render() {
         const { current } = this.state;
+        console.log("fu", this.props.user)
+
         return (
             <div>
                 <Steps current={current}>
-                    {steps.map(item => <Step key={item.title} title={item.title} />)}
+                    {this.steps.map(item => <Step key={item.title} title={item.title} />)}
                 </Steps>
                 <br />
-                <div className="steps-content">{steps[this.state.current].content}</div>
+                <div className="steps-content">{this.steps[this.state.current].content}</div>
                 <br />
                 <div className="steps-action">
                     {
-                        this.state.current < steps.length - 1
+                        this.state.current < this.steps.length - 1
                         &&
                         <Button type="primary" onClick={() => this.next()}>Next</Button>
                     }
                     {
-                        this.state.current === steps.length - 1
+                        this.state.current === this.steps.length - 1
                         &&
-                        <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
+                        <Button type="primary" onClick={() => {
+                            api.user.updateUserInfo(this.props.user).then(() => {
+                                message.success(`Step ${current} Updates!`)
+                            })
+                        }}>Done</Button>
                     }
                     {
                         this.state.current > 0
@@ -63,5 +80,12 @@ class StepsList extends React.Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    };
+}
 
-export default StepsList
+export default connect(mapStateToProps, null)(
+    StepsList
+);

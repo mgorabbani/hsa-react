@@ -15,6 +15,8 @@ export default {
     validateToken: token => axios.post("/api/auth/validate_token", { token }),
     resetPassword: data => axios.post("/api/auth/reset_password", { data }),
     fetchCurrentUser: () =>
-      axios.get("/api/users/current_user").then(res => res.data.user)
+      axios.get("/api/users/current_user").then(res => res.data.user),
+
+    updateUserInfo: data => axios.patch("/api/users/current_user", { data }).then(res => res.data.user)
   }
 };

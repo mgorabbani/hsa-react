@@ -3,17 +3,19 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
-import { updateUserInfo } from '../../actions/users'
+import { updateUserInfo } from "../../actions/users";
 
-import { message, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 
+
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
+    autoCompleteResult: [],
   };
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -24,10 +26,9 @@ class RegistrationForm extends React.Component {
 
     });
   }
-
   render() {
     const { getFieldDecorator } = this.props.form;
-
+    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -51,68 +52,80 @@ class RegistrationForm extends React.Component {
         },
       },
     };
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '+88',
-    })(
-      <Select style={{ width: 100 }}>
-        <Option value="+88">+88</Option>
-      </Select>
-    );
-    console.log("usersss", this.props.user)
-    return (
 
-      < Form onSubmit={this.handleSubmit} >
+    return (
+      <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
           label={(
             <span>
-              Name&nbsp;
+              Incoming University Name&nbsp;
             </span>
           )}
         >
-          {getFieldDecorator('name', {
-            initialValue: this.props.user.name,
-            rules: [{ required: true, message: 'Please input your name!', whitespace: true }],
+          {getFieldDecorator('incoming_university', {
+            initialValue: this.props.user.incoming_university
           })(
             <Input onBlur={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="Admission In"
         >
-          {getFieldDecorator('email', {
-            initialValue: this.props.user.email,
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }],
+          {getFieldDecorator('admission_in', {
+            initialValue: this.props.user.admission_in
           })(
-            <Input onBlur={() => this.onchange()} />
+            <Select onBlur={() => this.onchange()} >
+              <Option value="PhD">PhD</Option>
+              <Option value="Masters">Masters</Option>
+            </Select>
           )}
         </FormItem>
 
         <FormItem
           {...formItemLayout}
-          label="Phone Number"
+          label="Field of Study/Major"
         >
-          {getFieldDecorator('phone', { initialValue: this.props.user.phone, })(
-            <Input onBlur={() => this.onchange()} addonBefore={prefixSelector} style={{ width: '100%' }} />
+          {getFieldDecorator('major', {
+            initialValue: this.props.user.major
+          })(
+            <Input placeholder='Computer Science' onBlur={() => this.onchange()} />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Research Area"
+        >
+          {getFieldDecorator('research_area', {
+            initialValue: this.props.user.research_area
+          })(
+            <Input placeholder='Human Computer Interaction' onBlur={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Facebook URL"
+          label="Financial Aid"
         >
-          {getFieldDecorator('fb_url', { initialValue: this.props.user.fb_url, })(
-            <Input onBlur={() => this.onchange()} placeholder="https://facebook.com/username" />
+          {getFieldDecorator('financial_aid', {
+            initialValue: this.props.user.financial_aid
+          })(
+            <Select mode="multiple" onBlur={() => this.onchange()} >
+              <Option value="TA">Teaching Assistentship</Option>
+              <Option value="RA">Research Assistentship</Option>
+              <Option value="FW">Full Waiver</Option>
+            </Select>
           )}
         </FormItem>
-      </Form >
+      </Form>
     );
   }
 }
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
+
+
 
 
 function mapStateToProps(state) {

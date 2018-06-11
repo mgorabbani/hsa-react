@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import SingleStudent from '../component/SingleStudent';
 import { Input, Col, Row } from 'antd';
 import { Card } from 'antd';

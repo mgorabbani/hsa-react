@@ -2,7 +2,8 @@ import {
   CREATE_USER_REQUEST,
   CREATE_USER_FAILURE,
   FETCH_CURRENT_USER_REQUEST,
-  FETCH_CURRENT_USER_SUCCESS
+  FETCH_CURRENT_USER_SUCCESS,
+  UPDATE_USER_INFO
 } from "../types";
 
 export const createUserRequest = user => ({
@@ -21,5 +22,10 @@ export const fetchCurrentUserRequest = () => ({
 
 export const fetchCurrentUserSuccess = user => ({
   type: FETCH_CURRENT_USER_SUCCESS,
+  user
+});
+
+export const updateUserInfo = user => ({
+  type: UPDATE_USER_INFO,
   user
 });

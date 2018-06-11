@@ -66,9 +66,18 @@ class TopNavigation extends React.Component {
               <NavLink
                 tag={RouterNavLink}
                 activeClassName="active"
-                to="/visa-interviews"
+                to="/insights"
               >
-                University Suggestion
+                Insights
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                tag={RouterNavLink}
+                activeClassName="active"
+                to="/university-recommendation"
+              >
+                University Recommendation
               </NavLink>
             </NavItem>
           </Nav>
@@ -122,7 +131,6 @@ TopNavigation.propTypes = {
     email: PropTypes.string.isRequired
   }).isRequired,
   logout: PropTypes.func.isRequired,
-  setLocale: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

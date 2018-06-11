@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import { Row, Col } from 'antd';
 
 import Steps from '../forms/Steps'

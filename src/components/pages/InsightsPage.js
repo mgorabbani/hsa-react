@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 
 
 
-class SettingsPage extends React.Component {
+class InsightsPage extends React.Component {
 
     render() {
         return (
@@ -26,4 +26,4 @@ class SettingsPage extends React.Component {
 }
 
 
-export default SettingsPage;
+export default InsightsPage;
