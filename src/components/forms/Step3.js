@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
 import { updateUserInfo } from "../../actions/users";
-
+import unlilist from "../../assets/unilistusa"
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -26,6 +26,12 @@ class RegistrationForm extends React.Component {
 
     });
   }
+  componentDidMount = () => {
+    this.setState({
+      autoCompleteResult: []
+    })
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
@@ -53,6 +59,10 @@ class RegistrationForm extends React.Component {
       },
     };
 
+    const websiteOptions = this.state.autoCompleteResult.map(website => (
+      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    ));
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem
@@ -65,8 +75,13 @@ class RegistrationForm extends React.Component {
         >
           {getFieldDecorator('incoming_university', {
             initialValue: this.props.user.incoming_university
-          })(
+          })(<AutoComplete
+            dataSource={websiteOptions}
+            onChange={this.handleWebsiteChange}
+            placeholder="University Name"
+          >
             <Input onBlur={() => this.onchange()} />
+          </AutoComplete>
           )}
         </FormItem>
         <FormItem
@@ -114,7 +129,12 @@ class RegistrationForm extends React.Component {
             <Select mode="multiple" onBlur={() => this.onchange()} >
               <Option value="TA">Teaching Assistentship</Option>
               <Option value="RA">Research Assistentship</Option>
-              <Option value="FW">Full Waiver</Option>
+              <Option value="GA">Graduate Assistentship</Option>
+              <Option value="FS">Fellowship</Option>
+              <Option value="FT">Full Tuition Waiver</Option>
+              <Option value="PT">In State/Partial Tuition Waiver</Option>
+              <Option value="OT">Others</Option>
+
             </Select>
           )}
         </FormItem>

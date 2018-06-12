@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
 
 import { updateUserInfo } from '../../actions/users'
-import { Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Radio, Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 
 class RegistrationForm extends React.Component {
@@ -55,7 +57,7 @@ class RegistrationForm extends React.Component {
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '880',
     })(
-      <Select style={{ width: 100 }} onBlur={() => this.onchange()} >
+      <Select style={{ width: 100 }} onChange={() => this.onchange()} >
         <Option value="880">+880</Option>
         <Option value="01">+1</Option>
       </Select>
@@ -66,7 +68,7 @@ class RegistrationForm extends React.Component {
     ));
 
     return (
-      <Form onSubmit={this.handleSubmit} onBlur={() => this.onchange()} >
+      <Form onSubmit={this.handleSubmit} onChange={() => this.onchange()} >
         <FormItem
           {...formItemLayout}
           label={(
@@ -92,104 +94,169 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('undergradcgpa', {
             initialValue: this.props.user.undergradcgpa
           })(
-            <Input onBlur={() => this.onchange()} />
+            <Input onChange={() => this.onchange()} />
           )}
         </FormItem>
+
         <FormItem
           {...formItemLayout}
-          label="GRE/GMAT/SAT Test Score"
+          label="Test Type"
+        >
+          {getFieldDecorator('unitest', {
+            initialValue: this.props.user.unitest
+          })(
+            <RadioGroup onChange={() => this.onchange()} >
+              <RadioButton value="GRE">GRE</RadioButton>
+              <RadioButton value="GMAT">GMAT</RadioButton>
+              <RadioButton value="SAT">SAT</RadioButton>
+            </RadioGroup>
+          )}
+        </FormItem>
+        {this.props.user.unitest && <FormItem
+          {...formItemLayout}
+          label={this.props.user.unitest + " Test Score"}
         >
           TOTAL:
-          {getFieldDecorator('gretotal', {
-            initialValue: this.props.user.gretotal
+          {getFieldDecorator('unitotal', {
+            initialValue: this.props.user.unitotal
           })(
             <Input
               type="text"
-              onBlur={() => this.onchange()}
+              onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
           Verbal:
-          {getFieldDecorator('grevarbal', {
-            initialValue: this.props.user.grevarbal
+          {getFieldDecorator('univarbal', {
+            initialValue: this.props.user.univarbal
           })(<Input
             type="text"
 
-            onBlur={() => this.onchange()}
+            onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          Quant:  {getFieldDecorator('grequant', {
-            initialValue: this.props.user.grequant
+          Quant:  {getFieldDecorator('uniquant', {
+            initialValue: this.props.user.uniquant
           })(
             <Input
               type="text"
-              onBlur={() => this.onchange()}
+              onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          AW:  {getFieldDecorator('greawa', {
-            initialValue: this.props.user.greawa
+          AW:  {getFieldDecorator('uniawa', {
+            initialValue: this.props.user.uniawa
           })(
             <Input
               type="text"
-              onBlur={() => this.onchange()}
+              onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
         </FormItem>
+        }
+
         <FormItem
           {...formItemLayout}
-          label="TOEFL Test Score"
+          label="Language Test"
         >
-          TOTAL:  {getFieldDecorator('toefltotal', {
-            initialValue: this.props.user.toefltotal
+          {getFieldDecorator('langtest', {
+            initialValue: this.props.user.langtest
+          })(
+            <RadioGroup onChange={() => this.onchange()} >
+              <RadioButton value="TOEFL">TOEFL</RadioButton>
+              <RadioButton value="IELTS">IELTS</RadioButton>
+            </RadioGroup>
+          )}
+        </FormItem>
+
+        {this.props.user.langtest && <FormItem
+          {...formItemLayout}
+          label={this.props.user.langtest + " Test Score"}
+        >
+          TOTAL:  {getFieldDecorator('langtotal', {
+            initialValue: this.props.user.langtotal
           })(
             <Input
               type="text"
 
-              onBlur={() => this.onchange()}
+              onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          R:  {getFieldDecorator('toeflreading', {
-            initialValue: this.props.user.toeflreading
+          R:  {getFieldDecorator('langreading', {
+            initialValue: this.props.user.langreading
           })(
             <Input
               type="text"
 
-              onBlur={() => this.onchange()}
+              onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
           W:
-          {getFieldDecorator('toeflwriting', {
-            initialValue: this.props.user.toeflwriting
+          {getFieldDecorator('langwriting', {
+            initialValue: this.props.user.langwriting
           })(<Input
             type="text"
-            onBlur={() => this.onchange()}
+            onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          L: {getFieldDecorator('toefllistening', {
-            initialValue: this.props.user.toefllistening
+          L: {getFieldDecorator('langlistening', {
+            initialValue: this.props.user.langlistening
           })(<Input
             type="text"
-            onBlur={() => this.onchange()}
+            onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />
           )}
-          S:  {getFieldDecorator('toeflspeaking', {
-            initialValue: this.props.user.toeflspeaking
+          S:  {getFieldDecorator('langspeaking', {
+            initialValue: this.props.user.langspeaking
           })(<Input
             type="text"
-            onBlur={() => this.onchange()}
+            onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-        </FormItem>
+        </FormItem>}
         <FormItem
           {...formItemLayout}
           label="Research publications"
         >
-          {getFieldDecorator('publication_number', {
-            initialValue: this.props.user.publication_number
+
+          International Journal:  {getFieldDecorator('intjournal', {
+            initialValue: this.props.user.intjournal
           })(
-            <Input placeholder="3" onBlur={() => this.onchange()} />
+            <Input
+              type="text"
+
+              onChange={() => this.onchange()}
+              style={{ width: '50px', marginRight: '3%' }}
+            />)}
+          International Conference Paper:  {getFieldDecorator('intconference', {
+            initialValue: this.props.user.intconference
+          })(
+            <Input
+              type="text"
+
+              onChange={() => this.onchange()}
+              style={{ width: '50px', marginRight: '3%' }}
+            />)}
+          National Journal:
+          {getFieldDecorator('natjournal', {
+            initialValue: this.props.user.natjournal
+          })(<Input
+            type="text"
+            onChange={() => this.onchange()}
+            style={{ width: '50px', marginRight: '3%' }}
+          />)}
+          National Conference Paper: {getFieldDecorator('natconference', {
+            initialValue: this.props.user.natconference
+          })(<Input
+            type="text"
+            onChange={() => this.onchange()}
+            style={{ width: '50px', marginRight: '3%' }}
+          />
           )}
         </FormItem>
+
+
+
+
         <FormItem
           {...formItemLayout}
           label="Job Experience"
@@ -197,7 +264,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('job_experience', {
             initialValue: this.props.user.job_experience
           })(
-            <Input placeholder="In Years" onBlur={() => this.onchange()} />
+            <Input placeholder="In Years" onChange={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
@@ -207,7 +274,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('research_experience', {
             initialValue: this.props.user.research_experience
           })(
-            <Input placeholder="In Months" onBlur={() => this.onchange()} />
+            <Input placeholder="In Months" onChange={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
@@ -217,7 +284,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('applied_university', {
             initialValue: this.props.user.applied_university
           })(
-            <Input placeholder="How many universities have you applied to?" onBlur={() => this.onchange()} />
+            <Input placeholder="How many universities have you applied to?" onChange={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
@@ -227,12 +294,12 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('accepted_university', {
             initialValue: this.props.user.accepted_university
           })(
-            <Input onBlur={() => this.onchange()} placeholder="How many universities have you been accepted to?" />
+            <Input onChange={() => this.onchange()} placeholder="How many universities have you been accepted to?" />
           )}
         </FormItem>
 
 
-      </Form>
+      </Form >
     );
   }
 }
