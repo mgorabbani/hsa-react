@@ -35,3 +35,10 @@ body {
     line-height: 22px;
     font-weight: bold;
 }
+path {
+    pointer-events: all;
+  }
+path:hover {
+    opacity: 0.50;
+    cursor: pointer;
+  }

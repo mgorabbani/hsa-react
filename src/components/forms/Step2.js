@@ -6,6 +6,7 @@ import isEmail from "validator/lib/isEmail";
 
 import { updateUserInfo } from '../../actions/users'
 import { Radio, Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import API from "../../api";
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -16,12 +17,22 @@ const RadioGroup = Radio.Group;
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
+    bdunilist: [],
   };
+
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+      }
+      if (values.bd_uni.length > 2) {
+        console.log('bd uni', values.bd_uni)
+        API.user.getBDUnilist(values.bd_uni).then((unilist) => {
+          console.log(unilist.data, 'uni withoutarry')
+          let univlist = unilist.data.map(e => e.name);
+          console.log(univlist, 'uni listtt')
+          this.setState({ bdunilist: univlist })
+        })
       }
       this.props.updateUserInfo(values)
 
@@ -30,7 +41,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
+    const { bdunilist } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -54,36 +65,27 @@ class RegistrationForm extends React.Component {
         },
       },
     };
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '880',
-    })(
-      <Select style={{ width: 100 }} onChange={() => this.onchange()} >
-        <Option value="880">+880</Option>
-        <Option value="01">+1</Option>
-      </Select>
-    );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
-
+    console.log('bd_uni', this.state.bd_un)
     return (
-      <Form onSubmit={this.handleSubmit} onChange={() => this.onchange()} >
+      <Form onChange={() => this.onchange()} >
         <FormItem
           {...formItemLayout}
           label={(
             <span>
               Bangladeshi Alma Mater&nbsp;
-              <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
             </span>
           )}
         >
           {getFieldDecorator('bd_uni', {
             initialValue: this.props.user.bd_uni
           })(
-            <Input />
+            <AutoComplete
+              dataSource={bdunilist}
+              onChange={() => this.onchange()}
+              onSelect={(s) => this.props.form.setFieldsValue({ 'bd_uni': s })}
+              placeholder="Type University Name"
+            />
+
           )}
         </FormItem>
 
@@ -166,13 +168,13 @@ class RegistrationForm extends React.Component {
             </RadioGroup>
           )}
         </FormItem>
-
-        {this.props.user.langtest && <FormItem
+        //toefl
+        {this.props.user.langtest == 'TOEFL' && <FormItem
           {...formItemLayout}
           label={this.props.user.langtest + " Test Score"}
         >
-          TOTAL:  {getFieldDecorator('langtotal', {
-            initialValue: this.props.user.langtotal
+          TOTAL:  {getFieldDecorator('toefltotal', {
+            initialValue: this.props.user.toefltotal
           })(
             <Input
               type="text"
@@ -180,8 +182,8 @@ class RegistrationForm extends React.Component {
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          R:  {getFieldDecorator('langreading', {
-            initialValue: this.props.user.langreading
+          R:  {getFieldDecorator('toeflreading', {
+            initialValue: this.props.user.toeflreading
           })(
             <Input
               type="text"
@@ -190,29 +192,81 @@ class RegistrationForm extends React.Component {
               style={{ width: '50px', marginRight: '3%' }}
             />)}
           W:
-          {getFieldDecorator('langwriting', {
-            initialValue: this.props.user.langwriting
+          {getFieldDecorator('toeflwriting', {
+            initialValue: this.props.user.toeflwriting
           })(<Input
             type="text"
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          L: {getFieldDecorator('langlistening', {
-            initialValue: this.props.user.langlistening
+          L: {getFieldDecorator('toefllistening', {
+            initialValue: this.props.user.toefllistening
           })(<Input
             type="text"
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />
           )}
-          S:  {getFieldDecorator('langspeaking', {
-            initialValue: this.props.user.langspeaking
+          S:  {getFieldDecorator('toeflspeaking', {
+            initialValue: this.props.user.toeflspeaking
           })(<Input
             type="text"
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
         </FormItem>}
+
+        //toefl end
+        //ielts start
+        {this.props.user.langtest == 'IELTS' && <FormItem
+          {...formItemLayout}
+          label={this.props.user.langtest + " Test Score"}
+        >
+          TOTAL:  {getFieldDecorator('ieltstotal', {
+            initialValue: this.props.user.ieltstotal
+          })(
+            <Input
+              type="text"
+
+              onChange={() => this.onchange()}
+              style={{ width: '50px', marginRight: '3%' }}
+            />)}
+          R:  {getFieldDecorator('ieltsreading', {
+            initialValue: this.props.user.ieltsreading
+          })(
+            <Input
+              type="text"
+
+              onChange={() => this.onchange()}
+              style={{ width: '50px', marginRight: '3%' }}
+            />)}
+          W:
+          {getFieldDecorator('ieltswriting', {
+            initialValue: this.props.user.ieltswriting
+          })(<Input
+            type="text"
+            onChange={() => this.onchange()}
+            style={{ width: '50px', marginRight: '3%' }}
+          />)}
+          L: {getFieldDecorator('ieltslistening', {
+            initialValue: this.props.user.ieltslistening
+          })(<Input
+            type="text"
+            onChange={() => this.onchange()}
+            style={{ width: '50px', marginRight: '3%' }}
+          />
+          )}
+          S:  {getFieldDecorator('ieltsspeaking', {
+            initialValue: this.props.user.ieltsspeaking
+          })(<Input
+            type="text"
+            onChange={() => this.onchange()}
+            style={{ width: '50px', marginRight: '3%' }}
+          />)}
+        </FormItem>}
+
+        //ielts end
+
         <FormItem
           {...formItemLayout}
           label="Research publications"

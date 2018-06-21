@@ -9,7 +9,7 @@ class SignupForm extends React.Component {
   state = {
     data: {
       email: "",
-      username: "",
+      name: "",
       password: ""
     },
     errors: {}
@@ -39,7 +39,7 @@ class SignupForm extends React.Component {
 
     if (!isEmail(data.email)) errors.email = "Invalid email";
     if (!data.password) errors.password = "Can't be blank";
-    if (!data.username) errors.username = "Can't be blank";
+    if (!data.name) errors.name = "Can't be blank";
 
     return errors;
   };
@@ -65,18 +65,18 @@ class SignupForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={data.username}
+            id="name"
+            name="name"
+            value={data.name}
             onChange={this.onChange}
             className={
-              errors.username ? "form-control is-invalid" : "form-control"
+              errors.name ? "form-control is-invalid" : "form-control"
             }
           />
-          <div className="invalid-feedback">{errors.username}</div>
+          <div className="invalid-feedback">{errors.name}</div>
         </div>
 
         <div className="form-group">
@@ -107,9 +107,10 @@ class SignupForm extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    serverErrors: state.formErrors.signup
-  };
+  console.log("singup page", state)
+  // return {
+  //   serverErrors: state.formErrors.signup
+  // };
 }
 
 SignupForm.propTypes = {

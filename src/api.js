@@ -17,6 +17,8 @@ export default {
     fetchCurrentUser: () =>
       axios.get("/api/users/current_user").then(res => res.data.user),
 
-    updateUserInfo: data => axios.patch("/api/users/current_user", { data }).then(res => res.data.user)
+    updateUserInfo: data => axios.patch("/api/users/current_user", { data }).then(res => res.data.user),
+    getBDUnilist: data => axios.post("/api/unilist/bd", { data }),
+    getUSAUnilist: data => axios.post("/api/unilist/usa", { data }),
   }
 };

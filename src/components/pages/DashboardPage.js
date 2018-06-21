@@ -25,7 +25,8 @@ class DashboardPage extends React.Component {
   }
 
   render() {
-    const { langtest, unitest, unitotal, langtotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
+    const { langtest, unitest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
+    console.log(this.props)
     const data = [
       {
         title: unitest,
@@ -35,7 +36,7 @@ class DashboardPage extends React.Component {
       {
         title: langtest,
         icon: 'read',
-        number: langtotal
+        number: langtest == 'TOEFL' ? toefltotal : ieltstotal
       },
       {
         title: 'UG CGPA',

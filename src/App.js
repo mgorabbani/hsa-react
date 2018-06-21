@@ -20,6 +20,7 @@ import ProfileBasicsPage from "./components/pages/ProfileBasicsPage";
 import SettingsPage from './components/pages/SettingsPage'
 import ProfileDetails from './components/pages/ProfileDetails'
 import './assets/style.css';
+import InsightsPage from "./components/pages/InsightsPage";
 class App extends React.Component {
   componentDidMount() {
     if (this.props.isAuthenticated) this.props.fetchCurrentUserRequest();
@@ -93,6 +94,12 @@ class App extends React.Component {
             path="/settings"
             exact
             component={SettingsPage}
+          />
+          <UserRoute
+            location={location}
+            path="/insights"
+            exact
+            component={InsightsPage}
           />
 
         </Loader>

@@ -43,7 +43,7 @@ class StepsList extends React.Component {
     }
     render() {
         const { current } = this.state;
-        console.log("fu", this.props.user)
+        console.log("fu", this.props)
 
         return (
             <div>
@@ -82,7 +82,8 @@ class StepsList extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        history: state.history
     };
 }
 

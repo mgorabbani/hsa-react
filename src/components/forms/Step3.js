@@ -6,6 +6,7 @@ import isEmail from "validator/lib/isEmail";
 import { updateUserInfo } from "../../actions/users";
 import unlilist from "../../assets/unilistusa"
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import API from "../../api";
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -15,12 +16,21 @@ const AutoCompleteOption = AutoComplete.Option;
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
+    usaunilist: [],
   };
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+      }
+      if (values.incoming_university.length > 2) {
+
+        API.user.getUSAUnilist(values.incoming_university).then((unilist) => {
+          console.log(unilist.data, 'uni withoutarry')
+          let univlist = unilist.data.map(e => e.name);
+          console.log(univlist, 'uni listtt')
+          this.setState({ usaunilist: univlist })
+        })
       }
       this.props.updateUserInfo(values)
 
@@ -59,12 +69,9 @@ class RegistrationForm extends React.Component {
       },
     };
 
-    const websiteOptions = this.state.autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onChange={() => this.onchange()} >
         <FormItem
           {...formItemLayout}
           label={(
@@ -76,12 +83,11 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('incoming_university', {
             initialValue: this.props.user.incoming_university
           })(<AutoComplete
-            dataSource={websiteOptions}
-            onChange={this.handleWebsiteChange}
-            placeholder="University Name"
-          >
-            <Input onBlur={() => this.onchange()} />
-          </AutoComplete>
+            dataSource={this.state.usaunilist}
+            onChange={() => this.onchange()}
+            onSelect={(s) => this.props.form.setFieldsValue({ 'incoming_university': s })}
+            placeholder="Type University Name"
+          />
           )}
         </FormItem>
         <FormItem
