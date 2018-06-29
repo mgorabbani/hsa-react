@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-
+import StudentMaps from './StudentMaps';
 const HomePage = () => (
   <React.Fragment>
     <section className="home-area">
@@ -12,7 +12,7 @@ const HomePage = () => (
             color: "white",
           }}
         >
-          <Col xs={10} sm={6}>
+          <Col xs={10} sm={4}>
             <h2>
               The key to your college application success
     is making it your own.
@@ -21,9 +21,9 @@ const HomePage = () => (
 Discover and showcase the best version of you.</h5>
             <br />
           </Col>
-          <Col xs={10} sm={6}>
+          <Col xs={10} sm={8}>
             <div className="text-center">
-              <img className="img-fluid rounded" src={require('../../assets/lindsay-henwood-47743-unsplash.jpg')} alt="" />
+              <StudentMaps />
             </div>
           </Col>
         </Row>

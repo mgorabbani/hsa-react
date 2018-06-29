@@ -2,7 +2,8 @@ import {
   USER_LOGGED_IN,
   USER_LOGGED_OUT,
   FETCH_CURRENT_USER_SUCCESS,
-  UPDATE_USER_INFO
+  UPDATE_USER_INFO,
+  UPDATE_USER_UNI
 } from "../types";
 
 export default function user(state = { loaded: false }, action = {}) {
@@ -14,6 +15,8 @@ export default function user(state = { loaded: false }, action = {}) {
     case USER_LOGGED_OUT:
       return { loaded: true };
     case UPDATE_USER_INFO:
+      return { ...state, ...action.user };
+    case UPDATE_USER_UNI:
       return { ...state, ...action.user };
     default:
       return state;

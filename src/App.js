@@ -17,10 +17,11 @@ import TopNavigation from "./components/navigation/TopNavigation";
 import SearchPage from "./components/pages/SearchPage";
 import { fetchCurrentUserRequest } from "./actions/users";
 import ProfileBasicsPage from "./components/pages/ProfileBasicsPage";
-import SettingsPage from './components/pages/SettingsPage'
+import FooterArea from './components/pages/FooterArea'
 import ProfileDetails from './components/pages/ProfileDetails'
 import './assets/style.css';
 import InsightsPage from "./components/pages/InsightsPage";
+import RecommenderPage from "./components/pages/RecommenderPage";
 class App extends React.Component {
   componentDidMount() {
     if (this.props.isAuthenticated) this.props.fetchCurrentUserRequest();
@@ -34,74 +35,77 @@ class App extends React.Component {
         <Loader loaded={loaded}>
 
           <TopNavigation />
-          <Route location={location} path="/" exact component={HomePage} />
-          <Route
-            location={location}
-            path="/confirmation/:token"
-            exact
-            component={ConfirmationPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/login"
-            exact
-            component={LoginPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/signup"
-            exact
-            component={SignupPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/forgot_password"
-            exact
-            component={ForgotPasswordPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/reset_password/:token"
-            exact
-            component={ResetPasswordPage}
-          />
-          <UserRoute
-            location={location}
-            path="/dashboard"
-            exact
-            component={DashboardPage}
-          />
-          <UserRoute
-            location={location}
-            path="/search-graduate"
-            exact
-            component={SearchPage}
-          />
-          <UserRoute
-            location={location}
-            path="/profile-basics"
-            exact
-            component={ProfileBasicsPage}
-          />
-          <UserRoute
-            location={location}
-            path="/profile-details/:id"
-            exact
-            component={ProfileDetails}
-          />
-          <UserRoute
-            location={location}
-            path="/settings"
-            exact
-            component={SettingsPage}
-          />
-          <UserRoute
-            location={location}
-            path="/insights"
-            exact
-            component={InsightsPage}
-          />
+          <section style={{ minHeight: '85vh' }} >
+            <Route location={location} path="/" exact component={HomePage} />
+            <Route
+              location={location}
+              path="/confirmation/:token"
+              exact
+              component={ConfirmationPage}
+            />
+            <GuestRoute
+              location={location}
+              path="/login"
+              exact
+              component={LoginPage}
+            />
+            <GuestRoute
+              location={location}
+              path="/signup"
+              exact
+              component={SignupPage}
+            />
+            <GuestRoute
+              location={location}
+              path="/forgot_password"
+              exact
+              component={ForgotPasswordPage}
+            />
+            <GuestRoute
+              location={location}
+              path="/reset_password/:token"
+              exact
+              component={ResetPasswordPage}
+            />
+            <UserRoute
+              location={location}
+              path="/dashboard"
+              exact
+              component={DashboardPage}
+            />
+            <UserRoute
+              location={location}
+              path="/search-graduate"
+              exact
+              component={SearchPage}
+            />
+            <UserRoute
+              location={location}
+              path="/profile-basics"
+              exact
+              component={ProfileBasicsPage}
+            />
+            <UserRoute
+              location={location}
+              path="/profile-details/:id"
+              exact
+              component={ProfileDetails}
+            />
 
+            <UserRoute
+              location={location}
+              path="/insights"
+              exact
+              component={InsightsPage}
+            />
+            <UserRoute
+              location={location}
+              path="/university-recommendation"
+              exact
+              component={RecommenderPage}
+            />
+          </section>
+          <FooterArea />
         </Loader>
       </div>
     );

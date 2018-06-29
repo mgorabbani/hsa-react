@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
-import { reducer as tooltip } from "redux-tooltip"
 import user from "./reducers/user";
-
+import formErrors from './reducers/formErrors';
 export default combineReducers({
-  user, tooltip
+  user, formErrors
 });

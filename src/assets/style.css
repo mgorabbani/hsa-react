@@ -16,6 +16,10 @@ body {
     font-family: 'Oswald', sans-serif;
     font-size: 16px;
 }
+h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+}
 .m50 {
     margin-top: 50px;
 }
@@ -27,7 +31,12 @@ body {
 .btn-login {
     background: #43DB7B
 }
-
+.lisst .ant-list-item-meta-title {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: normal;
+    font-family: 'Oswald', sans-serif;
+}
 .ant-list-item-meta-title {
     color: rgba(0, 0, 0, 0.65);
     margin-bottom: 4px;
@@ -42,3 +51,41 @@ path:hover {
     opacity: 0.50;
     cursor: pointer;
   }
+
+  .ant-card-actions > li, .ant-card-meta-description {
+    color: #142F40;
+}
+
+.ant-card-type-inner {font-family: 'Roboto', sans-serif;}
+.ant-card-actions li p {font-size: 17px;color:#142F40}
+.ant-progress-text {font-weight: bold;}
+.ant-card-extra b{color:#142F40;
+    font-size: 23px;
+    text-shadow: 2px 1px white;}
+
+    .ant-card-type-inner .ant-card-head-title {
+        padding: 12px 0;
+        font-size: 22px;
+        font-weight: bold;
+        font-family: 'Oswald', sans-serif;
+    }
+    .mapGradient:before{
+        content: 'High';
+        margin-left: 19px;
+        color: #244bee;
+    }
+    .mapGradient:after{
+        content: 'Low';
+        margin-left: 19px;
+        color: #244bee;
+        bottom: 0;
+        position: absolute;
+    }
+.mapGradient{
+   background: linear-gradient(to top, rgba(197,209,242,1) 0%,rgba(21,55,213,1.00) 50%, rgba(32,58,154,1.00) 100%);
+   height:200px;
+   width: 15px;
+   position: absolute;
+   top: 150px;
+   right: 100px;
+}

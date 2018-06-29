@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ConfirmEmailMessage from "../messages/ConfirmEmailMessage";
 import _ from 'lodash'
-import { Container, Row, Col } from "reactstrap";
-import gravatarUrl from "gravatar-url";
-import { List } from 'antd';
+import API from '../../api';
+import { Container, Row, Col, Button, } from "reactstrap";
+import { Link } from 'react-router-dom'
+import { List, Divider } from 'antd';
 
 import { TopArea, ProfileBox, Sphr, Tips } from '../CommonStyles'
 
@@ -14,18 +15,27 @@ import { TopArea, ProfileBox, Sphr, Tips } from '../CommonStyles'
 
 class DashboardPage extends React.Component {
   state = {
-    incomplete: 0
+    incomplete: 0,
+    s: false,
+    bucket_list: []
   }
   componentDidMount() {
     let count = Math.round(_.size(this.props.user) / 30 * 100)
-    console.log(count, 'ccc')
+    const { langtest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
+    if (!!langtest && !!unitotal && !!job_experience && !!research_experience && !!undergradcgpa && !!publication_number && !!toefltotal || !!ieltstotal) {
+      this.setState({ s: true })
+    }
     this.setState({
       incomplete: count
     })
+
+    this.setState({ bucket_list: this.props.user.bucket_list })
+
   }
 
   render() {
     const { langtest, unitest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
+
     console.log(this.props)
     const data = [
       {
@@ -76,7 +86,7 @@ class DashboardPage extends React.Component {
               <ProfileBox style={{ minHeight: "200px" }}>
                 <img
                   className="img-fluid "
-                  src={gravatarUrl(user.email, { size: 200 })}
+                  src={user.photo}
                   alt="Gravatar"
                 />
               </ProfileBox>
@@ -84,9 +94,9 @@ class DashboardPage extends React.Component {
             </Col>
             <Col md={5} style={{ marginTop: '20px' }}>
               <div className="row">
-                <h6>Your Status</h6>
+                <Divider orientation="left"> <h3>Your Status</h3></Divider>
               </div>
-              <Tips className="row">
+              {!this.state.s && <Tips className="row">
                 <span className="col-md-2">
                   <img src={require('../../assets/incomplete.png')} width={70} />
                 </span>
@@ -94,8 +104,47 @@ class DashboardPage extends React.Component {
 
                   <h3>Your profile is incomplete</h3>
                   <h6>Add to your profile to get the most out of it.</h6>
+                  <Link
+                    to="/profile-basics"
+                  >Edit Your Profile</Link>
                 </span>
-              </Tips>
+              </Tips>}
+              {this.state.s && <Tips className="row">
+                <span className="col-md-2">
+                  <img src="https://png.icons8.com/color/96/4AB05B/task-completed.png" width={80} style={{ marginRight: '10px', marginTop: '20px' }} />
+                </span>
+                <span className="col-md-10">
+
+                  <h3>Great!</h3>
+                  <h6>Now that you complete your profile, You can use the University Recommend Feature</h6>
+                  <Link
+                    to="/university-recommendation"
+                  >Go to University Recommendation</Link>
+                </span>
+              </Tips>}
+
+              <div className="row" style={{ marginTop: '40px', marginBottom: '40px' }}>
+
+                <Divider orientation="left">  <h3>Short Listed University</h3></Divider>
+
+                <div>
+                  <ul>
+                    <List
+                      dataSource={this.state.bucket_list}
+                      renderItem={item => (
+                        <List.Item>
+                          <List.Item.Meta className="lisst"
+                            avatar={<img src={"https://png.icons8.com/doodle/24/4AB05B/checkmark.png"} alt="" />}
+                            title={item.name}
+                          />
+
+                        </List.Item>
+                      )}
+                    />
+
+                  </ul>
+                </div>
+              </div>
             </Col>
             <Col md={{ size: 4 }} style={{ marginTop: "30px" }} >
               <List

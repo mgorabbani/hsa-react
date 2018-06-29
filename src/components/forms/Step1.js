@@ -87,7 +87,7 @@ class RegistrationForm extends React.Component {
               type: 'email', message: 'The input is not valid E-mail!',
             }],
           })(
-            <Input onBlur={() => this.onchange()} />
+            <Input disabled onBlur={() => this.onchange()} />
           )}
         </FormItem>
 

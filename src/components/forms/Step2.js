@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
-
+import _ from 'lodash';
 import { updateUserInfo } from '../../actions/users'
 import { Radio, Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import API from "../../api";
@@ -25,13 +25,26 @@ class RegistrationForm extends React.Component {
       if (!err) {
         console.log('Received values of form: ', values);
       }
-      if (values.bd_uni.length > 2) {
+      if (values.bd_uni && values.bd_uni.length > 2) {
         console.log('bd uni', values.bd_uni)
         API.user.getBDUnilist(values.bd_uni).then((unilist) => {
+          function ObjToArray(obj) {
+            var arr = obj instanceof Array;
+
+            return (arr ? obj : Object.keys(obj)).map(function (i) {
+              var val = arr ? i : obj[i];
+              if (typeof val === 'object')
+                return ObjToArray(val);
+              else
+                return val;
+            });
+          }
+
           console.log(unilist.data, 'uni withoutarry')
-          let univlist = unilist.data.map(e => e.name);
-          console.log(univlist, 'uni listtt')
-          this.setState({ bdunilist: univlist })
+          let univlist = ObjToArray(unilist.data)
+          let newdbd = univlist.map(e => e[1])
+          console.log(newdbd, 'uni listtt')
+          this.setState({ bdunilist: newdbd })
         })
       }
       this.props.updateUserInfo(values)
@@ -72,7 +85,10 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label={(
             <span>
-              Bangladeshi Alma Mater&nbsp;
+              Bangladeshi Alma Matter&nbsp;
+              <Tooltip title="Please let us know the latest Bangladeshi university you studied in.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
             </span>
           )}
         >
@@ -91,16 +107,23 @@ class RegistrationForm extends React.Component {
 
         <FormItem
           {...formItemLayout}
-          label="Undergrad CGPA"
+          label={(
+            <span>
+              Undergrad CGPA&nbsp;
+              <Tooltip title="Your undergraduate current CGPA converted into the scale of 4.0.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
         >
           {getFieldDecorator('undergradcgpa', {
-            initialValue: this.props.user.undergradcgpa
+            initialValue: this.props.user.undergradcgpa, rules: [{ required: true, message: 'Your undergraduate current CGPA converted into the scale of 4.0.' }]
           })(
             <Input onChange={() => this.onchange()} />
           )}
         </FormItem>
 
-        <FormItem
+        {/* <FormItem
           {...formItemLayout}
           label="Test Type"
         >
@@ -113,30 +136,29 @@ class RegistrationForm extends React.Component {
               <RadioButton value="SAT">SAT</RadioButton>
             </RadioGroup>
           )}
-        </FormItem>
-        {this.props.user.unitest && <FormItem
+        </FormItem> */}
+        {<FormItem
           {...formItemLayout}
-          label={this.props.user.unitest + " Test Score"}
+          label={(
+            <span>
+              Estimated/Actual GRE Score&nbsp;
+              <Tooltip title="We need your GRE score in order to recommend you the right university. If you have't appeared for GRE yet, please provide us an estimated score. You can always update it later.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
         >
-          TOTAL:
-          {getFieldDecorator('unitotal', {
-            initialValue: this.props.user.unitotal
-          })(
-            <Input
-              type="text"
-              onChange={() => this.onchange()}
-              style={{ width: '50px', marginRight: '3%' }}
-            />)}
+
           Verbal:
           {getFieldDecorator('univarbal', {
-            initialValue: this.props.user.univarbal
+            initialValue: this.props.user.univarbal, rules: [{ required: true, message: "We need your GRE score in order to recommend you the right university. If you have't appeared for GRE yet, please provide us an estimated score. You can always update it later." }]
           })(<Input
             type="text"
 
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          Quant:  {getFieldDecorator('uniquant', {
+          Quantitative:  {getFieldDecorator('uniquant', {
             initialValue: this.props.user.uniquant
           })(
             <Input
@@ -144,7 +166,7 @@ class RegistrationForm extends React.Component {
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          AW:  {getFieldDecorator('uniawa', {
+          Analytical Writing:  {getFieldDecorator('uniawa', {
             initialValue: this.props.user.uniawa
           })(
             <Input
@@ -168,21 +190,12 @@ class RegistrationForm extends React.Component {
             </RadioGroup>
           )}
         </FormItem>
-        //toefl
         {this.props.user.langtest == 'TOEFL' && <FormItem
           {...formItemLayout}
           label={this.props.user.langtest + " Test Score"}
         >
-          TOTAL:  {getFieldDecorator('toefltotal', {
-            initialValue: this.props.user.toefltotal
-          })(
-            <Input
-              type="text"
 
-              onChange={() => this.onchange()}
-              style={{ width: '50px', marginRight: '3%' }}
-            />)}
-          R:  {getFieldDecorator('toeflreading', {
+          Reading:  {getFieldDecorator('toeflreading', {
             initialValue: this.props.user.toeflreading
           })(
             <Input
@@ -191,7 +204,7 @@ class RegistrationForm extends React.Component {
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          W:
+          Writing:
           {getFieldDecorator('toeflwriting', {
             initialValue: this.props.user.toeflwriting
           })(<Input
@@ -199,7 +212,7 @@ class RegistrationForm extends React.Component {
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          L: {getFieldDecorator('toefllistening', {
+          Listening: {getFieldDecorator('toefllistening', {
             initialValue: this.props.user.toefllistening
           })(<Input
             type="text"
@@ -207,7 +220,7 @@ class RegistrationForm extends React.Component {
             style={{ width: '50px', marginRight: '3%' }}
           />
           )}
-          S:  {getFieldDecorator('toeflspeaking', {
+          Speaking:  {getFieldDecorator('toeflspeaking', {
             initialValue: this.props.user.toeflspeaking
           })(<Input
             type="text"
@@ -216,31 +229,21 @@ class RegistrationForm extends React.Component {
           />)}
         </FormItem>}
 
-        //toefl end
-        //ielts start
+
         {this.props.user.langtest == 'IELTS' && <FormItem
           {...formItemLayout}
           label={this.props.user.langtest + " Test Score"}
         >
-          TOTAL:  {getFieldDecorator('ieltstotal', {
-            initialValue: this.props.user.ieltstotal
-          })(
-            <Input
-              type="text"
 
-              onChange={() => this.onchange()}
-              style={{ width: '50px', marginRight: '3%' }}
-            />)}
-          R:  {getFieldDecorator('ieltsreading', {
+          Reading:  {getFieldDecorator('ieltsreading', {
             initialValue: this.props.user.ieltsreading
           })(
             <Input
               type="text"
-
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          W:
+          Writing:
           {getFieldDecorator('ieltswriting', {
             initialValue: this.props.user.ieltswriting
           })(<Input
@@ -248,7 +251,7 @@ class RegistrationForm extends React.Component {
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          L: {getFieldDecorator('ieltslistening', {
+          Listening: {getFieldDecorator('ieltslistening', {
             initialValue: this.props.user.ieltslistening
           })(<Input
             type="text"
@@ -256,7 +259,7 @@ class RegistrationForm extends React.Component {
             style={{ width: '50px', marginRight: '3%' }}
           />
           )}
-          S:  {getFieldDecorator('ieltsspeaking', {
+          Speaking:  {getFieldDecorator('ieltsspeaking', {
             initialValue: this.props.user.ieltsspeaking
           })(<Input
             type="text"
@@ -265,14 +268,54 @@ class RegistrationForm extends React.Component {
           />)}
         </FormItem>}
 
-        //ielts end
+        <FormItem
+          {...formItemLayout}
+          label={(
+            <span>
+              Major/Field of Study&nbsp;
+              <Tooltip title="Which Department do you study in?">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
+        >
+          {getFieldDecorator('major', {
+            initialValue: this.props.user.major, rules: [{ required: true, message: 'We need your department name in order to choose the right university for you.' }]
+          })(
+            <Select onChange={() => this.onchange()} placeholder="Please select your major"
+              onSelect={(s) => this.props.form.setFieldsValue({ 'major': s })}>
+              <Option value="Engr">Engineering</Option>
+              <Option value="ISE">Industrial / Manufacturing / Systems Engineering</Option>
+              <Option value="Elec">Electrical / Electronic / Communications Engineering</Option>
+              <Option value="CS">Computer Science / Engineering</Option>
+              <Option value="Agri">Agriculture / Horticulture / Forestry / Plant Sciences</Option>
+              <Option value="Petro">Petroleum Engineering</Option>
+              <Option value="Biomed">Biomedical / Bioengineering Engineering</Option>
+              <Option value="Aero">Aerospace / Aeronautical / Astronautical Engineering</Option>
+              <Option value="Mech">Mechanical Engineering</Option>
+              <Option value="Nuclear">Nuclear Engineering</Option>
+              <Option value="Chem">Chemical Engineering</Option>
+              <Option value="Environ">Environmental / Environmental Health Engineering</Option>
+              <Option value="Civil" >Civil / Structural Engineering</Option>
+              <Option value="Materials">Materials Science / Engineering</Option>
+            </Select>
+          )}
+        </FormItem>
+
 
         <FormItem
           {...formItemLayout}
-          label="Research publications"
+          label={(
+            <span>
+              Number of Research publications&nbsp;
+              <Tooltip title="Please indicate the number of publications you have in each category. This will help us choose you a better matched university.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
         >
 
-          International Journal:  {getFieldDecorator('intjournal', {
+          <span style={{ minWidth: '200px', display: 'inline-block' }}>International Journal: </span> {getFieldDecorator('intjournal', {
             initialValue: this.props.user.intjournal
           })(
             <Input
@@ -281,7 +324,7 @@ class RegistrationForm extends React.Component {
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          International Conference Paper:  {getFieldDecorator('intconference', {
+          <span style={{ minWidth: '205px', display: 'inline-block' }}>International Conference Paper: </span> {getFieldDecorator('intconference', {
             initialValue: this.props.user.intconference
           })(
             <Input
@@ -290,7 +333,8 @@ class RegistrationForm extends React.Component {
               onChange={() => this.onchange()}
               style={{ width: '50px', marginRight: '3%' }}
             />)}
-          National Journal:
+          <br />
+          <span style={{ minWidth: '205px', display: 'inline-block' }}>National Journal:</span>
           {getFieldDecorator('natjournal', {
             initialValue: this.props.user.natjournal
           })(<Input
@@ -298,7 +342,7 @@ class RegistrationForm extends React.Component {
             onChange={() => this.onchange()}
             style={{ width: '50px', marginRight: '3%' }}
           />)}
-          National Conference Paper: {getFieldDecorator('natconference', {
+          <span style={{ minWidth: '205px', display: 'inline-block' }}>National Conference Paper:</span> {getFieldDecorator('natconference', {
             initialValue: this.props.user.natconference
           })(<Input
             type="text"
@@ -313,42 +357,36 @@ class RegistrationForm extends React.Component {
 
         <FormItem
           {...formItemLayout}
-          label="Job Experience"
+          label={(
+            <span>
+              Job Experience&nbsp;
+              <Tooltip title="Please indicate how many months of relevant Job Experience you have. This will help us choose you a better matched university.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
         >
           {getFieldDecorator('job_experience', {
             initialValue: this.props.user.job_experience
-          })(
-            <Input placeholder="In Years" onChange={() => this.onchange()} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Research Experience"
-        >
-          {getFieldDecorator('research_experience', {
-            initialValue: this.props.user.research_experience
           })(
             <Input placeholder="In Months" onChange={() => this.onchange()} />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Applied University"
-        >
-          {getFieldDecorator('applied_university', {
-            initialValue: this.props.user.applied_university
-          })(
-            <Input placeholder="How many universities have you applied to?" onChange={() => this.onchange()} />
+          label={(
+            <span>
+              Research Experience&nbsp;
+              <Tooltip title="Please indicate how many months of relevant Research Experience you have. This will help us choose you a better matched university.">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
           )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Accepted University"
         >
-          {getFieldDecorator('accepted_university', {
-            initialValue: this.props.user.accepted_university
+          {getFieldDecorator('research_experience', {
+            initialValue: this.props.user.research_experience
           })(
-            <Input onChange={() => this.onchange()} placeholder="How many universities have you been accepted to?" />
+            <Input placeholder="In Months" onChange={() => this.onchange()} />
           )}
         </FormItem>
 

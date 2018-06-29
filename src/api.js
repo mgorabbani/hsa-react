@@ -19,6 +19,9 @@ export default {
 
     updateUserInfo: data => axios.patch("/api/users/current_user", { data }).then(res => res.data.user),
     getBDUnilist: data => axios.post("/api/unilist/bd", { data }),
-    getUSAUnilist: data => axios.post("/api/unilist/usa", { data }),
+    recommendUniversity: (data) => axios.post("/api/unilist/recommend", { data }).then(res => res.data),
+    fetchmapinsights: () => axios.get("/api/unilist/insights").then(res => res.data),
+    uniBucket: (data) => axios.post("/api/users/uni_bucket", { data }).then(res => res.data.user),
+    uniBucketRemove: (data) => axios.delete("/api/users/uni_bucket", { data }).then(res => res.data.user)
   }
 };
