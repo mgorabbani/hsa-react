@@ -35,10 +35,10 @@ class TopNavigation extends React.Component {
                 <NavbarBrand tag={RouterNavLink} activeClassName="active" to={user ? '/dashboard' : '/'}>
                     <img
                         className="img-fluid"
-                        width="200"
+                        width="300"
                         src={require('../../assets/hsa-student-logo.png')}
 
-                        alt="Gravatar"
+                        alt="Higher Study Abroad"
                     />
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />

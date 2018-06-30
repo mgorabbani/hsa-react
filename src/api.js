@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// axios.defaults.baseURL = 'http://ec2-18-222-28-1.us-east-2.compute.amazonaws.com:8888';
 export default {
   user: {
     login: credentials =>

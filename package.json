@@ -58,5 +58,6 @@
     "eslint-plugin-react": "^7.3.0",
     "prettier": "^1.9.1"
   },
-  "proxy": "http://localhost:8888"
+  "proxy": "http://localhost:8888",
+  "proxy2": "http://ec2-18-222-28-1.us-east-2.compute.amazonaws.com:8888"
 }

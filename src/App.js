@@ -35,7 +35,7 @@ class App extends React.Component {
         <Loader loaded={loaded}>
 
           <TopNavigation />
-          <section style={{ minHeight: '85vh' }} >
+          <section style={{ minHeight: '85vh' }} className="home-area" >
             <Route location={location} path="/" exact component={HomePage} />
             <Route
               location={location}
@@ -49,12 +49,12 @@ class App extends React.Component {
               exact
               component={LoginPage}
             />
-            <GuestRoute
+            {/* <GuestRoute
               location={location}
               path="/signup"
               exact
               component={SignupPage}
-            />
+            /> */}
             <GuestRoute
               location={location}
               path="/forgot_password"

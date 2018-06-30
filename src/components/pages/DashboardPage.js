@@ -20,6 +20,7 @@ class DashboardPage extends React.Component {
     bucket_list: []
   }
   componentDidMount() {
+    document.title = "Dashboard | HSA University Finder";
     let count = Math.round(_.size(this.props.user) / 30 * 100)
     const { langtest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
     if (!!langtest && !!unitotal && !!job_experience && !!research_experience && !!undergradcgpa && !!publication_number && !!toefltotal || !!ieltstotal) {

@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import StudentMaps from './StudentMaps';
 const HomePage = () => (
   <React.Fragment>
-    <section className="home-area">
+    <section >
       <Container >
         <Row
           className="align-items-center "
@@ -13,11 +13,11 @@ const HomePage = () => (
           }}
         >
           <Col xs={10} sm={4}>
-            <h2>
-              The key to your college application success
-    is making it your own.
-        </h2>
-            <h5>Real application examples and insights from students like you who carved their own path.
+            <h3>
+              TARGETING NEXT FALL? GET EARLY ACCESS:
+        </h3>
+            <h5> The key to your US university application success
+    is to choose the right one. Get instant university recommendation and insights from students like you who carved their own path.
 Discover and showcase the best version of you.</h5>
             <br />
           </Col>
@@ -30,15 +30,15 @@ Discover and showcase the best version of you.</h5>
       </Container>
     </section>
 
-    <Container >
+    {/* <Container >
       <Row className="align-items-center justify-content-center text-center">
         <Col xs={10} sm={10}>
           <div className="text-center">
-            <img className="img-fluid" src={require('../../assets/demo2.jpg')} alt="" />
+
           </div>
         </Col>
       </Row>
-    </Container>
+    </Container> */}
   </React.Fragment>
 );
 

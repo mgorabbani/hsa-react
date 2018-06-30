@@ -19,6 +19,7 @@ export class RecommendUni extends Component {
         rank: ''
     }
     componentDidMount() {
+        document.title = "Recommendation | HSA University Finder";
         console.log('from recommend page', this.props.user)
         API.user.recommendUniversity(this.props.user).then(d => {
             console.log(d.docs)

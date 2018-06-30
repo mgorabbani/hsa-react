@@ -9,7 +9,9 @@ import 'antd/dist/antd.css';
 
 
 class ProfileBasics extends React.Component {
-
+    componentDidMount() {
+        document.title = "Profile | HSA University Finder";
+    }
     render() {
         return (
             <React.Fragment>

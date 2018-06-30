@@ -13,6 +13,9 @@ const gridStyle = {
 
 export class Insights extends Component {
 
+    componentDidMount() {
+        document.title = "Insights | HSA University Finder";
+    }
     render() {
 
         return (
