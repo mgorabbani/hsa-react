@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
 import _ from 'lodash';
 import { updateUserInfo } from '../../actions/users'
-import { Radio, Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Radio, Form, Input, InputNumber, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Spin } from 'antd';
 import API from "../../api";
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -18,15 +18,17 @@ class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
     bdunilist: [],
+    uniload: false
   };
 
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+
       }
-      if (values.bd_uni && values.bd_uni.length > 2) {
-        console.log('bd uni', values.bd_uni)
+      if (values.bd_uni && values.bd_uni !== this.props.user.bd_uni && values.bd_uni.length > 2) {
+
+        this.setState({ uniload: true })
         API.user.getBDUnilist(values.bd_uni).then((unilist) => {
           function ObjToArray(obj) {
             var arr = obj instanceof Array;
@@ -40,11 +42,11 @@ class RegistrationForm extends React.Component {
             });
           }
 
-          console.log(unilist.data, 'uni withoutarry')
+
           let univlist = ObjToArray(unilist.data)
           let newdbd = univlist.map(e => e[1])
-          console.log(newdbd, 'uni listtt')
-          this.setState({ bdunilist: newdbd })
+
+          this.setState({ bdunilist: newdbd, uniload: false })
         })
       }
       this.props.updateUserInfo(values)
@@ -78,7 +80,8 @@ class RegistrationForm extends React.Component {
         },
       },
     };
-    console.log('bd_uni', this.state.bd_un)
+
+
     return (
       <Form onChange={() => this.onchange()} >
         <FormItem
@@ -96,11 +99,15 @@ class RegistrationForm extends React.Component {
             initialValue: this.props.user.bd_uni
           })(
             <AutoComplete
+              showSearch={true}
               dataSource={bdunilist}
               onChange={() => this.onchange()}
               onSelect={(s) => this.props.form.setFieldsValue({ 'bd_uni': s })}
               placeholder="Type University Name"
-            />
+            >
+              <Input suffix={<Spin spinning={this.state.uniload} indicator={<Icon type="loading" className="certain-category-icon" />} />} />
+            </AutoComplete>
+
 
           )}
         </FormItem>

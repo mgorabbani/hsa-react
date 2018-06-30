@@ -43,8 +43,9 @@ class TopNavigation extends React.Component {
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav navbar>
-                        {/* <NavItem>
+                    {isAuthenticated &&
+                        <Nav navbar>
+                            {/* <NavItem>
                             <NavLink
                                 tag={RouterNavLink}
                                 activeClassName="active"
@@ -53,7 +54,7 @@ class TopNavigation extends React.Component {
                                 Search Profiles
               </NavLink>
                         </NavItem> */}
-                        {/* <NavItem>
+                            {/* <NavItem>
               <NavLink
                 tag={RouterNavLink}
                 activeClassName="active"
@@ -62,25 +63,26 @@ class TopNavigation extends React.Component {
                 Visa Interviews
               </NavLink>
             </NavItem> */}
-                        <NavItem>
-                            <NavLink
-                                tag={RouterNavLink}
-                                activeClassName="active"
-                                to="/insights"
-                            >
-                                Insights
+                            <NavItem>
+                                <NavLink
+                                    tag={RouterNavLink}
+                                    activeClassName="active"
+                                    to="/insights"
+                                >
+                                    Insights
               </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink
-                                tag={RouterNavLink}
-                                activeClassName="active"
-                                to="/university-recommendation"
-                            >
-                                University Recommendation
+                            </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    tag={RouterNavLink}
+                                    activeClassName="active"
+                                    to="/university-recommendation"
+                                >
+                                    University Recommendation
               </NavLink>
-                        </NavItem>
-                    </Nav>
+                            </NavItem>
+                        </Nav>
+                    }
                     <Nav className="ml-auto" navbar>
                         {!isAuthenticated && <NavItem>
                             <NavLink

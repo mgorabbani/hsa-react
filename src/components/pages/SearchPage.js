@@ -26,7 +26,6 @@ class SearchPage extends React.Component {
                                 placeholder="Search By Colleges or Universities"
                                 enterButton="Search"
                                 size="large"
-                                onSearch={value => console.log(value)}
                             />
                         </Col>
                     </Row>

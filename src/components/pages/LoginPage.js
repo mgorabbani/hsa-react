@@ -11,11 +11,11 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="container" style={{ paddingTop: '20px' }}>
+        <div className="container" style={{ paddingTop: '100px' }}>
           <div className="row align-items-center">
             <div className="col col-xs-12 col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
               <div className="card">
-                <h2 className="card-header">Welcome Back!</h2>
+                <h3 className="card-header">Welcome Back!</h3>
                 <div className="card-body">
                   <LoginForm submit={this.submit} />
                 </div>

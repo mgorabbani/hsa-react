@@ -6,7 +6,6 @@ import {
     Geography,
 } from "react-simple-maps"
 import { scaleLinear } from "d3-scale"
-import { csv } from "d3-fetch"
 import ReactTooltip from "react-tooltip"
 import 'antd/dist/antd.css';
 import API from '../../api'
@@ -30,10 +29,10 @@ class StudentMaps extends React.Component {
     componentDidMount() {
 
         API.user.fetchmapinsights().then((e) => {
-            console.log(e, 'map tada')
+
             this.setState({ population: e })
         }).catch(e => {
-            console.log('something went wrong, please reload page!')
+
         })
         setTimeout(() => {
             ReactTooltip.rebuild()

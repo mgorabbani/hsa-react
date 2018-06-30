@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Step1 from './Step1';
 import Step2 from './Step2';
-import Step3 from './Step3';
+// import Step3 from './Step3';
 import api from "../../api";
 import { Steps, Button, notification } from 'antd';
 const Step = Steps.Step;
@@ -42,7 +42,7 @@ class StepsList extends React.Component {
     }
     render() {
         const { current } = this.state;
-        console.log("fu", this.props)
+
 
         return (
             <div style={{ paddingBottom: '60px' }} >

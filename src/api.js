@@ -1,5 +1,5 @@
 import axios from "axios";
-// axios.defaults.baseURL = 'http://ec2-18-222-28-1.us-east-2.compute.amazonaws.com:8888';
+axios.defaults.baseURL = 'http://api.higherstudy.club:8888/';
 export default {
   user: {
     login: credentials =>
@@ -21,7 +21,7 @@ export default {
     getBDUnilist: data => axios.post("/api/unilist/bd", { data }),
     recommendUniversity: (data) => axios.post("/api/unilist/recommend", { data }).then(res => res.data),
     fetchmapinsights: () => axios.get("/api/unilist/insights").then(res => res.data),
-    uniBucket: (data) => axios.post("/api/users/uni_bucket", { data }).then(res => res.data.user),
+    uniBucket: (data) => axios.post("/api/users/uni_bucket", { data }).then(res => res.data),
     uniBucketRemove: (data) => axios.delete("/api/users/uni_bucket", { data }).then(res => res.data.user)
   }
 };

@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Validator from "validator";
-
+import { Spin } from 'antd';
 class LoginForm extends React.Component {
   state = {
     data: {
       email: "",
       password: ""
     },
-    errors: {}
+    errors: {},
+    loading: false
   };
 
   onChange = e =>
@@ -33,8 +34,8 @@ class LoginForm extends React.Component {
 
   validate = data => {
     const errors = {};
-    if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
-    if (!data.password) errors.password = "Can't be blank";
+    if (!Validator.isEmail(data.email)) errors.email = "Invalid email Address";
+    if (!data.password) errors.password = "Password can't be blank";
     return errors;
   };
 
@@ -54,6 +55,7 @@ class LoginForm extends React.Component {
             id="email"
             name="email"
             value={data.email}
+            placeholder="Your Email"
             onChange={this.onChange}
             className={
               errors.email ? "form-control is-invalid" : "form-control"
@@ -68,6 +70,7 @@ class LoginForm extends React.Component {
             type="password"
             id="password"
             name="password"
+            placeholder="Your Password"
             value={data.password}
             onChange={this.onChange}
             className={
@@ -76,10 +79,11 @@ class LoginForm extends React.Component {
           />
           <div className="invalid-feedback">{errors.password}</div>
         </div>
-
-        <button type="submit" className="btn btn-primary btn-block">
-          Login
+        <Spin spinning={this.state.loading} delay={500}>
+          <button type="submit" className="btn btn-primary btn-block">
+            Login
         </button>
+        </Spin>
 
         <small className="form-text text-center">
           {/* <Link to="/signup">Sign up</Link> if you don't have an account<br /> */}

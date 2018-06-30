@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux'
 
-import { Card, Row, Progress, Icon, Button, notification } from 'antd';
-import { Link } from 'react-router-dom'
+import { Card, Progress, Icon, Button, notification } from 'antd';
+
 import API from '../../api'
 
 function toDolar(e) {
@@ -26,7 +26,6 @@ class SingleUniversity extends React.Component {
         })
     }
     componentDidMount() {
-        // console.log(this.props.user.bucket_list.name, 'lissst')
         if (this.props.user) {
             let found = this.props.user.bucket_list.find(e => {
                 if (e.name == this.props.data.Name) {

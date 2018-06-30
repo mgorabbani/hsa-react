@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
 import { updateUserInfo } from "../../actions/users";
-import unlilist from "../../assets/unilistusa"
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import API from "../../api";
 const FormItem = Form.Item;
@@ -21,14 +20,14 @@ class RegistrationForm extends React.Component {
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+
       }
       if (values.incoming_university.length > 2) {
 
         API.user.getUSAUnilist(values.incoming_university).then((unilist) => {
-          console.log(unilist.data, 'uni withoutarry')
+
           let univlist = unilist.data.map(e => e.name);
-          console.log(univlist, 'uni listtt')
+
           this.setState({ usaunilist: univlist })
         })
       }

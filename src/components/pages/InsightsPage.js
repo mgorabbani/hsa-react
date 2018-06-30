@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Layout, Card } from 'antd';
-import SingleUniversity from '../component/SingleUniversity';
+import { Layout } from 'antd';
 import StudentMaps from './StudentMaps'
-const { Header, Footer, Sider, Content } = Layout;
-const gridStyle = {
-    width: '50%',
-    textAlign: 'left',
-};
+const { Sider, Content } = Layout;
 
 
 export class Insights extends Component {

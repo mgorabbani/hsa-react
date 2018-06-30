@@ -18,7 +18,7 @@ class RegistrationForm extends React.Component {
   onchange = (e) => {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+
       }
       this.props.updateUserInfo(values)
 
@@ -58,7 +58,7 @@ class RegistrationForm extends React.Component {
         <Option value="+88">+88</Option>
       </Select>
     );
-    console.log("usersss", this.props.user)
+
     return (
 
       < Form onSubmit={this.handleSubmit} >

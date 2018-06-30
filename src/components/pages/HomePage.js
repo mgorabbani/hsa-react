@@ -13,12 +13,12 @@ const HomePage = () => (
           }}
         >
           <Col xs={10} sm={4}>
-            <h3>
+            <h1>
               TARGETING NEXT FALL? GET EARLY ACCESS:
-        </h3>
-            <h5> The key to your US university application success
+        </h1>
+            <p style={{ color: '#000' }}> The key to your US university application success
     is to choose the right one. Get instant university recommendation and insights from students like you who carved their own path.
-Discover and showcase the best version of you.</h5>
+Discover and showcase the best version of you.</p>
             <br />
           </Col>
           <Col xs={10} sm={8}>

@@ -16,6 +16,8 @@ body {
     font-family: 'Oswald', sans-serif;
     font-size: 16px;
 }
+h1 {font-family: 'Oswald', sans-serif;}
+
 h3 {
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
@@ -55,7 +57,7 @@ path:hover {
   .ant-card-actions > li, .ant-card-meta-description {
     color: #142F40;
 }
-
+.ant-list-item {padding-bottom: 0}
 .ant-card-type-inner {font-family: 'Roboto', sans-serif;}
 .ant-card-actions li p {font-size: 17px;color:#142F40}
 .ant-progress-text {font-weight: bold;}

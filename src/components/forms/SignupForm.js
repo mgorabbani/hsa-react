@@ -107,7 +107,7 @@ class SignupForm extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("singup page", state)
+
   return {
     serverErrors: state.formErrors.signup || null
   };

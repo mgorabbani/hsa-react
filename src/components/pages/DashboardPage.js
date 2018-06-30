@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ConfirmEmailMessage from "../messages/ConfirmEmailMessage";
 import _ from 'lodash'
-import API from '../../api';
-import { Container, Row, Col, Button, } from "reactstrap";
+
+import { Container, Row, Col, } from "reactstrap";
 import { Link } from 'react-router-dom'
 import { List, Divider } from 'antd';
 
-import { TopArea, ProfileBox, Sphr, Tips } from '../CommonStyles'
+import { TopArea, ProfileBox, Tips } from '../CommonStyles'
 
 
 
@@ -17,12 +17,20 @@ class DashboardPage extends React.Component {
   state = {
     incomplete: 0,
     s: false,
-    bucket_list: []
+    bucket_list: [],
+    publication_number: 0,
   }
   componentDidMount() {
     document.title = "Dashboard | HSA University Finder";
     let count = Math.round(_.size(this.props.user) / 30 * 100)
-    const { langtest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
+    const { langtest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, intconference, intjournal, natconference, natjournal } = this.props.user;
+
+    let ic = parseInt(intconference) || 0;
+    let ij = parseInt(intjournal) || 0;
+    let nc = parseInt(natconference) || 0;
+    let nj = parseInt(natjournal) || 0;
+    let publication_number = ic + ij + nc + nj;
+    this.setState({ publication_number: publication_number })
     if (!!langtest && !!unitotal && !!job_experience && !!research_experience && !!undergradcgpa && !!publication_number && !!toefltotal || !!ieltstotal) {
       this.setState({ s: true })
     }
@@ -37,7 +45,7 @@ class DashboardPage extends React.Component {
   render() {
     const { langtest, unitest, unitotal, toefltotal, ieltstotal, job_experience, research_experience, undergradcgpa, publication_number } = this.props.user;
 
-    console.log(this.props)
+
     const data = [
       {
         title: unitest,
@@ -67,10 +75,10 @@ class DashboardPage extends React.Component {
       {
         title: 'Publications',
         icon: 'us-news',
-        number: publication_number
+        number: this.state.publication_number
       },
     ];
-    console.log('counting', )
+
     const { isConfirmed, user } = this.props;
     return (
       <React.Fragment>
@@ -78,7 +86,7 @@ class DashboardPage extends React.Component {
           {!isConfirmed && <ConfirmEmailMessage />}
         </div>
         <TopArea>
-          <h1 > Welcome Back to HSA Students!</h1>
+          <h1 > Welcome Back to HSA University Finder</h1>
           <h5>It's always good to see you.</h5>
         </TopArea>
         <Container >

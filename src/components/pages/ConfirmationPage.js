@@ -11,6 +11,7 @@ class ConfirmationPage extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "Confirmation | HSA University Finder";
     this.props
       .confirm(this.props.match.params.token)
       .then(() => this.setState({ loading: false, success: true }))

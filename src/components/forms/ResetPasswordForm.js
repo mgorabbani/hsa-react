@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { Spin } from 'antd';
 class ResetPasswordForm extends React.Component {
   state = {
     data: {
@@ -8,7 +8,8 @@ class ResetPasswordForm extends React.Component {
       password: "",
       passwordConfirmation: ""
     },
-    errors: {}
+    errors: {},
+    loading: false
   };
 
   onChange = e =>
@@ -76,9 +77,11 @@ class ResetPasswordForm extends React.Component {
           <div className="invalid-feedback">{errors.passwordConfirmation}</div>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block">
-          Reset Password
+        <Spin spinning={this.state.loading} delay={500}>
+          <button type="submit" className="btn btn-primary btn-block">
+            Reset Password
         </button>
+        </Spin>
       </form>
     );
   }
