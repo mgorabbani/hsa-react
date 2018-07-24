@@ -58,15 +58,15 @@ ROOT_PATH: /api/unilist
         POST   /selected_uni_list
 ```
 
-#Screenshots
+# Screenshots
 ![alt text][sc1]
 ![alt text][sc2]
 ![alt text][sc3]
 ![alt text][sc4]
 
-#Credits
-Higher Study Abroad | Non-profit Organisation
-Alamgir Kabir | Course Teacher
+# Credits
+* Higher Study Abroad | Non-profit Organisation
+* Alamgir Kabir | Course Teacher
 
 **_All the files are copywrited and only for demonstration purpose, using any code from this is copywrite violation._**
 
