@@ -68,7 +68,7 @@ ROOT_PATH: /api/unilist
 * Higher Study Abroad | Non-profit Organisation
 * Alamgir Kabir | Course Teacher
 
-**_All the files are copywrited and only for demonstration purpose, using any code from this is copywrite violation._**
+**_All the files are copyrighted and only for demonstration purpose, using any code from this is copyright violation._**
 
 [dbschema]: https://github.com/mgorabbani/hsa-react/raw/master/repo_files/databaseSchema.png "Database Schema"
 [cd]: https://github.com/mgorabbani/hsa-react/raw/master/repo_files/class-diagram.png "Class Diagram"
