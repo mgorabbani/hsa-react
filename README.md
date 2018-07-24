@@ -1,13 +1,13 @@
-#HSA Student Profile
+# HSA Student Profile
 Students who want to pursue their Masters/Phd from University from USA, With the help of this app students can get some suggested university based on their profile, like their GRE, TOEFL/ITELTS, CGPA, Number of Publications, Research Experience, Work Experience etc.
 
 * Students will get the university lists
 * Get Insights of Popular states among Bangladeshi Students
 * Update Profiles for future data analysis
 
-#Features
+# Features
 Describe Functional and Non-Functional Requirements.
-###Functional Requirements:
+### Functional Requirements:
 * Create account
 * Login to the app
 * Fill up student’s profile informations
@@ -16,28 +16,28 @@ Describe Functional and Non-Functional Requirements.
 * Can shortlist university
 * Can change password
 * Get email notification for forget password
-###Non-Functional Requirements:
+### Non-Functional Requirements:
 * Simple minimal and elegant look
 * Enough secured authentication system
 * 100% Open Source
 * User Friendly and Responsive across devices
 
-#Tools and Resources
+# Tools and Resources
 * Describe PC configuration, languages and IDE require to develop the project
 * PC: Macbook Pro 13.3” i5 8GB Ram.
 * Language & Libraries: JavaScript, HTML, CSS, React JS, MongoDB, NodeJS
 * Code Editor: Visual Studio Code
 
-#Use Case Design
+# Use Case Design
 ![alt text][ucd]
 
-#Database Schema
+# Database Schema
 ![alt text][dbschema]
 
-#Class Diagram
+# Class Diagram
 ![alt text][cd]
 
-#APIs
+# APIs
 ```javascript
 ROOT_PATH: /api/auth
         POST   /
