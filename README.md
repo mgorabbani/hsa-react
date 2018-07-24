@@ -19,7 +19,6 @@ Describe Functional and Non-Functional Requirements.
 ### Non-Functional Requirements:
 * Simple minimal and elegant look
 * Enough secured authentication system
-* 100% Open Source
 * User Friendly and Responsive across devices
 
 # Tools and Resources
