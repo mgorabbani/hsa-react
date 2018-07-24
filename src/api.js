@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = 'http://api.higherstudy.club:8888/';
+axios.defaults.baseURL = 'http://localhost:8888/';
 export default {
   user: {
     login: credentials =>
